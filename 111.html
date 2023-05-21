@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #main {
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main" style="width: 600px; height: 400px"></div>
+    <script src="./echarts.min.js"></script>
+    <script>
+      /**
+       * [1]下载js文件
+       * [2]引入
+       * [3]准备容器
+       * [4]使用echarts.init实例化容器
+       * [5]定义数据内容
+       * [6]将内容设置给实例对象setOption
+       * */
+      const foodArr = [
+        { name: '西兰花', price: 150 },
+        { name: '西瓜', price: 230 },
+        { name: '西葫芦', price: 224 },
+        { name: '西北风', price: 34 },
+        { name: '西红柿', price: 135 },
+        { name: '西芹', price: 147 },
+        { name: '西洋菜', price: 260 },
+      ];
+      const myChart = echarts.init(document.querySelector('#main'));
+      const option = {
+        //标题组件
+        title: {
+          text: '食品销量',
+        },
+        //图例组件，控制图表的显示和隐藏
+        legend: {
+          right: '2%', //图例组件距离容器右侧的位置
+          //图例的数据内容展示要和series中的name的值保持一致，否则不显示
+          data: ['价格'],
+        },
+        //直角坐标系内绘图网格
+        grid: {
+          left: 120, //grid 组件距离容器左侧的距离
+        },
+        //直角坐标系grid中的x轴的内容
+        xAxis: {
+          data: foodArr.map((ele) => ele.name),
+        },
+        //直角坐标系grid中的Y轴
+        yAxis: {
+          //y轴分隔线
+          splitLine: {
+            lineStyle: {
+              type: 'dashed', //显得类型
+            },
+          },
+        },
+        tooltip: {
+          trigger: 'axis', //触发方式，axis表示坐标轴触发
+        },
+        //系列设置
+        series: [
+          {
+            //系列名称，用于tooltip的显示，legend的图例筛选
+            name: '价格',
+            type: 'bar', //的的类型，bar是柱状图
+            data: foodArr.map((ele) => ele.price), //数据中的数据内容数组
+          },
+        ],
+        color: ['#86cce9'],
+      };
+      myChart.setOption(option);
+    </script>
+  </body>
+</html>
